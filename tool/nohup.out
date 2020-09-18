@@ -1,0 +1,27 @@
+new=qcd1000to1500_1.h5 old=data_3.h5
+ new_start   new_end   old-new old_start   old_end  how_many
+         0        42      1135      1135      1177        43
+new=qcd1000to1500_1.h5 old=data_2.h5
+ new_start   new_end   old-new old_start   old_end  how_many
+      3782      3855     -3529       253       326        74
+new=qcd1000to1500_2.h5 old=data_1.h5
+ new_start   new_end   old-new old_start   old_end  how_many
+         0       116      3979      3979      4095       117
+new=qcd1000to1500_2.h5 old=data_3.h5
+ new_start   new_end   old-new old_start   old_end  how_many
+      3250      3350     -3221        29       129       101
+new=qcd1000to1500_3.h5 old=data_2.h5
+ new_start   new_end   old-new old_start   old_end  how_many
+         0       143      3952      3952      4095       144
+new=qcd1000to1500_3.h5 old=data_4.h5
+ new_start   new_end   old-new old_start   old_end  how_many
+      3157      3243     -3145        12        98        87
+new=qcd1000to1500_4.h5 old=data_3.h5
+ new_start   new_end   old-new old_start   old_end  how_many
+         0        86      4009      4009      4095        87
+new=qcd1000to1500_4.h5 old=data_5.h5
+ new_start   new_end   old-new old_start   old_end  how_many
+      3794      3855     -3188       606       667        62
+new=qcd1000to1500_5.h5 old=data_4.h5
+ new_start   new_end   old-new old_start   old_end  how_many
+         0        61      4034      4034      4095        62

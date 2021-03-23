@@ -1,0 +1,16 @@
+[W 08:45:04.359 LabApp] Collisions detected in /home/tikim/.jupyter/jupyter_notebook_config.py and /home/tikim/.jupyter/jupyter_notebook_config.json config files. /home/tikim/.jupyter/jupyter_notebook_config.json has higher priority: {
+      "NotebookApp": {
+        "password": "'argon2:$argon2id$v=19$m=10240,t=10,p=8$mpuXVla+j4gRfwtVe3cmRg$/3wCiKu3BhKjiOsRwFzd7Q' ignored, using 'argon2:$argon2id$v=19$m=10240,t=10,p=8$YTy/9dLnSnRoRqKtgPq9ww$UgK46zJkWF7bAsEZv2gE5Q'"
+      }
+    }
+[I 08:45:04.569 LabApp] The port 8080 is already in use, trying another port.
+[I 08:45:04.571 LabApp] The port 8081 is already in use, trying another port.
+[I 08:45:04.580 LabApp] JupyterLab extension loaded from /home/tikim/anaconda3/lib/python3.8/site-packages/jupyterlab
+[I 08:45:04.580 LabApp] JupyterLab application directory is /home/tikim/anaconda3/share/jupyter/lab
+[I 08:45:04.582 LabApp] Serving notebooks from local directory: /home/tikim/work/hello-world/root
+[I 08:45:04.582 LabApp] The Jupyter Notebook is running at:
+[I 08:45:04.582 LabApp] http://localhost:8082/
+[I 08:45:04.582 LabApp] Use Control-[C 08:49:16.673 LabApp] received signal 15, stopping
+[I 08:49:16.674 LabApp] Shutting down 0 kernels
+ received signal 15, stopping
+[I 08:49:16.674 LabApp] Shutting down 0 kernels

@@ -1,0 +1,9 @@
+how to see root tree ---------------------
+reference : https://www.opentutorials.org/module/2860/17022
+root file_name.root
+TBrowser b
+
+jupyter server----------------------------
+nohup jupyter lab --no-browser --port=8080 > nohup_jupyterlab_pytorch.out & tail -f nohup_jupyterlab_pytorch.out
+ssh -Y -N -p 7777 -L 8080:localhost:8080 id@server
+ssh -N -L local-address:local-port:remote-address:remote-port remote-user@remote-host

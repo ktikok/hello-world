@@ -1,20 +1,24 @@
 how to see root tree ---------------------
+
 reference : https://www.opentutorials.org/module/2860/17022
 root file_name.root
 TBrowser b
 
 jupyter server----------------------------
+
 nohup jupyter lab --no-browser --port=8080 > nohup_jupyterlab_pytorch.out & tail -f nohup_jupyterlab_pytorch.out
 ssh -Y -N -p 7777 -L 8080:localhost:8080 id@server
 ssh -N -L local-address:local-port:remote-address:remote-port remote-user@remote-host
 
 github usage----------------------------
-git
-git add.
+
+git pull
+git add .
 git commit -m "abcd"
 git push
 
 when you have large file github message---------------------
+
 $ git rm --cached giant_file
 # Stage our giant file for removal, but leave it on disk
 $ git commit --amend -CHEAD
@@ -23,3 +27,60 @@ $ git commit --amend -CHEAD
 # to remove the file from the unpushed history as well
 $ git push
 # Push our rewritten, smaller commit
+
+other commands-------------------
+
+date 
+//show date and time
+
+echo -e "\a" 
+//alarm sound
+
+scp -r -P 7777 Homework1\ Root\ plot\ drawing\ \(1\) id@adress:~/c_assignment/ 
+//send directory to server
+
+tar -xvf file.tar 
+//-x:extract a tar ball, -v:verbose ouput or show progress while extracting files, -f:specify an archive or a tarball filename.
+
+curl ifconfig.me 
+//show my public ip address
+
+gcc file.c -o file -lm 
+//-ml:use math library
+
+for i in {24..35}; do echo -e "\033[0;31m $i \033[0m"; cat example$i.c; done 
+//for loop and colour
+
+diff file1 file2 
+//find differences
+
+PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\t \u@\h \j\[\033[00m\]:\[\033[01;34m\]\w\n\[\033[00m\]\$ ' 
+//change appearance
+
+sudo apt update && sudo apt upgrade -y 
+//first thing to do after install ubuntu
+
+cat /proc/cpuinfo 
+//Get cpu info
+
+source ~/.bashrc 
+// Apply change now
+
+cat /etc/os-release 
+// get os name
+
+natas 7 7z3hEENjQtflzgnT29q7wAvMNfZdh0i9 | awk  '{for(i=1;i<=NF;i++){ if($i~/body/) $i=sprintf("\033[0;36m %s \033[0;00m",$i)}; print}'
+# color keyword
+
+whereis php
+which php
+sudo ln -s php7.4 /usr/bin/php
+# after install php, if command not found error occurs, you can make a symbolic link like that.
+
+sudo apt udpate
+sudo apt udgrade
+# after install php, if unknown function json_~~ occurs, try the above command.
+
+curl "http://natas11.natas.labs.overthewire.org/" -H "Authorization: Basic `echo -n "natas11:U82q5TCMMQ9xuFoI3dYX61s7OZD9JKoK" | base64`" -H 'Cookie: data=ClVLIh4ASCsCBE8lAxMacFMOXTlTWxooFhRXJh4FGnBTVF4sFxFeLFMK'
+# you can send request with the curl command.
+

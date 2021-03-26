@@ -1,0 +1,349 @@
+0
+ssh -p 2220 bandit0@bandit.labs.overthewire.org //생략
+bandit0
+cat readme
+
+1
+bandit1@localhost //생략
+boJ9jbbUNNfktd78OOpsqOltutMc3MY1
+cat ./-
+
+2
+CV1DtqXWVFXTvM2F0k09SHz0YwRINYA9
+cat spaces\ in\ this\ filename
+
+3
+UmHadQclWmgdLOKQ3YNgjWxGoRMb5luK
+cat ./.hidden
+UmHadQclWmgdLOKQ3YNgjWxGoRMb5luK
+
+4
+pIwrPrtPN36QITSp3EQaw936yaFoFgAB
+for i in `ls`; do file -i './'$i; done
+cat ./-file07
+
+5
+koReBOKuIDDepwhWk7jZC0RTdopnAYKh
+cat `find ./ ! -executable -readable -size 1033c`
+
+6
+DXjZPULLxYr17uwoI01bNLQbtFemEgo7
+cat `find / -user bandit7 -group bandit6 -size 33c 2>/dev/null` //22>/dev/null는 에러 잡기.
+
+7
+HKBPTKQnIay4Fw76bEy8PVxKEDQRKTzs
+cat data.txt | grep millionth
+
+8
+cvX2JJa4CFALtqS87jk27qwqGhBM9plV
+cat data.txt | sort -d | uniq -u //uniq은 앞뒤에 같은게 있는지 아닌지를 보는거라서 정렬이 되어 있어야함.
+
+9
+UsvVyFSfZZWbi6wgC7dAFyFuR6jQQUhR
+strings -a data.txt | grep ==
+
+10
+truKLdjsbJ5g7yyJ2X2R0o3a5HQJFuLk
+base64 -d data.txt
+
+
+11
+IFukwKGsFW8MOq3IRFqrxE1hxTNEbUPR
+cat data.txt | tr 'A-Za-z' 'N-ZA-Mn-za-m'
+
+12
+5Te8Y4drgCRfCx8ugdwuEX8KFC6k2EUu
+1. file filename 으로 타입을 확인한다.
+2. 중간에 실수했을때 처음부터 하는 것을 방지하기 위해 파일을 복사한다.
+3. 복사할 때 이름은 압축해제할 확장자 이름으로 해야 해제가 진행된다.
+기타. 중간에 bzip2로 압축된것의 확장자를 bz2로하면 나중에 tar에서 제대로 풀리지 않는다. 그냥 bz로 해야 풀린다.
+검색해본 바에 의하면 bzip2는 새로운 확장자가 아니고 그냥 bzip의 새로운 버전인것 같다.
+아래 스크립트를 실행하면 바로 찾을 수 있도록 짜보겠다.
+참고1 스크립트를 짜보니, 가장 최근 파일이 같은 분에 생성된 파일은 이름 순으로 정렬되는 문제가 있어서 그냥 과거파일은 삭제하는 것으로 했다.
+참고2 tar는 압축해제하면 기존 파일이 남아 있어서 그것도 삭제하는 커멘드를 추가했다. 안그러면 새롭게 익스트랙트 되는 파일이 너무 오래된거라서 시간순으로 했을때 문제가 발생한다. 사실 이렇게 다 삭제할꺼면 시간순으로 굳이 안해도 되는 거긴하다. 
+
+#!/bin/bash
+#위의 문장은 배시스크립트로 짤때만 넣고, 그냥 shell에서는 밑의 내용을 복붙하면 된다.
+
+cd /tmp/myname123
+rm *
+cp ~/data.txt data.txt
+xxd -r ./data.txt > a
+rm ./data.txt
+IFS=' '; read -a strarr0 <<< `ls -t`
+cnt=0
+#while :
+for i in {1..20}
+do
+  cnt=$((cnt+1))
+  IFS=' '; read -a strarr <<< `ls -t`; echo ${strarr[0]}
+  IFS=' '; read -a strarr1 <<< `file ./${strarr[0]}`; echo ${strarr1[1]}
+  
+  if [ ${strarr1[1]} == "ASCII" ]
+  then
+    echo `cat ./${strarr[0]}`
+    break
+    
+  elif [ ${strarr1[1]} == "gzip" ]
+  then
+    cp ${strarr[0]} ${strarr0[0]}$cnt".gz" ; gzip -d ${strarr0[0]}$cnt".gz"; rm ${strarr[0]}
+
+  elif [ ${strarr1[1]} == "bzip2" ]
+  then
+    cp ${strarr[0]} ${strarr0[0]}$cnt".bz" ; bzip2 -d ${strarr0[0]}$cnt".bz"; rm ${strarr[0]}
+
+  elif [ ${strarr1[1]} == "POSIX" ]
+  then
+    cp ${strarr[0]} ${strarr0[0]}$cnt".tar" ; tar -xf ${strarr0[0]}$cnt".tar"; rm ${strarr[0]}; rm ${strarr0[0]}$cnt".tar"
+
+  fi
+  #break
+  
+done  
+
+13
+8ZjyCRiBWFYkneahHwxCv3wb2a1ORpYL
+ssh -i ./sshkey.private bandit14@localhost
+cat /etc/bandit_pass/bandit14
+
+14
+4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e
+cat /etc/bandit_pass/bandit14
+echo "4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e" | nc localhost 30000
+
+15
+BfMYroe26WYalil77FoDi9qh59eK5xNr
+openssl s_client -connect localhost:30001  
+BfMYroe26WYalil77FoDi9qh59eK5xNr //이건 이렇게 직접 입력해야 하나보다.
+
+16
+cluFn7wTiGryunymYOu4RcffSxQluehd
+nmap -p31000-32000 localhost 
+
+// 이렇게하면 열려있는게 보인다. 이 중에서 같은 내용을을 답변하는 것을 거르기 위해서 아래 커멘드로 확인한다. 
+
+echo cluFn7wTiGryunymYOu4RcffSxQluehd | nc localhost 31046
+
+위와 같이 31046대신에 다른 열려있는 포트들도 체크하며 어떤 답변이 돌아오는지 확인해본다.
+답변이 안 돌아오는 포트에 대해서는 
+
+echo cluFn7wTiGryunymYOu4RcffSxQluehd | openssl s_client -quiet -connect localhost:31790 2>/dev/null
+
+// -quiet을 쓰면 echo 로 미리 입력값을 넣을 수 있다. 2>/dev/null은 오류를 출력하지 않아서 깔끔하다. 어떤 포트는 입력을 요하기 때문에 for문을 돌릴수는 없다.
+
+vim /tmp/mykey/a
+-----BEGIN RSA PRIVATE KEY-----
+MIIEogIBAAKCAQEAvmOkuifmMg6HL2YPIOjon6iWfbp7c3jx34YkYWqUH57SUdyJ
+imZzeyGC0gtZPGujUSxiJSWI/oTqexh+cAMTSMlOJf7+BrJObArnxd9Y7YT2bRPQ
+Ja6Lzb558YW3FZl87ORiO+rW4LCDCNd2lUvLE/GL2GWyuKN0K5iCd5TbtJzEkQTu
+DSt2mcNn4rhAL+JFr56o4T6z8WWAW18BR6yGrMq7Q/kALHYW3OekePQAzL0VUYbW
+JGTi65CxbCnzc/w4+mqQyvmzpWtMAzJTzAzQxNbkR2MBGySxDLrjg0LWN6sK7wNX
+x0YVztz/zbIkPjfkU1jHS+9EbVNj+D1XFOJuaQIDAQABAoIBABagpxpM1aoLWfvD
+KHcj10nqcoBc4oE11aFYQwik7xfW+24pRNuDE6SFthOar69jp5RlLwD1NhPx3iBl
+J9nOM8OJ0VToum43UOS8YxF8WwhXriYGnc1sskbwpXOUDc9uX4+UESzH22P29ovd
+d8WErY0gPxun8pbJLmxkAtWNhpMvfe0050vk9TL5wqbu9AlbssgTcCXkMQnPw9nC
+YNN6DDP2lbcBrvgT9YCNL6C+ZKufD52yOQ9qOkwFTEQpjtF4uNtJom+asvlpmS8A
+vLY9r60wYSvmZhNqBUrj7lyCtXMIu1kkd4w7F77k+DjHoAXyxcUp1DGL51sOmama
++TOWWgECgYEA8JtPxP0GRJ+IQkX262jM3dEIkza8ky5moIwUqYdsx0NxHgRRhORT
+8c8hAuRBb2G82so8vUHk/fur85OEfc9TncnCY2crpoqsghifKLxrLgtT+qDpfZnx
+SatLdt8GfQ85yA7hnWWJ2MxF3NaeSDm75Lsm+tBbAiyc9P2jGRNtMSkCgYEAypHd
+HCctNi/FwjulhttFx/rHYKhLidZDFYeiE/v45bN4yFm8x7R/b0iE7KaszX+Exdvt
+SghaTdcG0Knyw1bpJVyusavPzpaJMjdJ6tcFhVAbAjm7enCIvGCSx+X3l5SiWg0A
+R57hJglezIiVjv3aGwHwvlZvtszK6zV6oXFAu0ECgYAbjo46T4hyP5tJi93V5HDi
+Ttiek7xRVxUl+iU7rWkGAXFpMLFteQEsRr7PJ/lemmEY5eTDAFMLy9FL2m9oQWCg
+R8VdwSk8r9FGLS+9aKcV5PI/WEKlwgXinB3OhYimtiG2Cg5JCqIZFHxD6MjEGOiu
+L8ktHMPvodBwNsSBULpG0QKBgBAplTfC1HOnWiMGOU3KPwYWt0O6CdTkmJOmL8Ni
+blh9elyZ9FsGxsgtRBXRsqXuz7wtsQAgLHxbdLq/ZJQ7YfzOKU4ZxEnabvXnvWkU
+YOdjHdSOoKvDQNWu6ucyLRAWFuISeXw9a/9p7ftpxm0TSgyvmfLF2MIAEwyzRqaM
+77pBAoGAMmjmIJdjp+Ez8duyn3ieo36yrttF5NSsJLAbxFpdlc1gvtGCWW+9Cq0b
+dxviW8+TFVEBl1O4f7HVm6EpTscdDxU+bCXWkfjuRb7Dy9GOtt9JPsX8MBTakzh3
+vBgsyi/sN3RqRBcGU40fOoZyfAMT8s1m/uYv52O6IgeuZ/ujbjY=
+-----END RSA PRIVATE KEY-----
+chmod 400 /tmp/mykey/a
+ssh -i /tmp/mykey/a bandit17@localhost
+
+
+17
+ssh -i /tmp/mykey/a bandit17@localhost
+diff passwords.new passwords.old
+
+
+18
+ssh bandit18@localhost cat readme
+kfBf3eYk5BPBRzwjqutbbfE887SVc5Yd
+
+19
+IueksS7Ubh8G3DCwVzrTd8rAVOwq3M5x
+./bandit20-do
+./bandit20-do cat /etc/bandit_pass/bandit20
+
+20
+GbKksEFF4yrVs6il55v6gwY5aVje5f0j
+nmap localhost -p1-65000
+
+이렇게해서 열리지 않은 것 중에서 아무 값이나 선택한다. 밑의 예에서는 60000을 선택한 것이다.
+
+echo GbKksEFF4yrVs6il55v6gwY5aVje5f0j | nc -l -p 60000 &
+nmap localhost -p 60000
+
+열려있는지 확인하고 위의 방법으로 다시 포트를 연다. 왜냐하면 확인하는 순간 닫히기 때문이다.
+
+echo GbKksEFF4yrVs6il55v6gwY5aVje5f0j | nc -l -p 60000 &
+./suconnect 60000
+
+
+21
+gE269g2h3mw3pwgrj0Ha9Uoqen1c9DGr
+cd /etc/cron.d/
+cat cronjob_bandit22
+cat  /usr/bin/cronjob_bandit22.sh
+cat /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+
+22
+Yk7owGAcWjwMVRwrTesJEwB7WVOiILLI
+ls /etc/cron.d/
+cat /etc/cron.d/cronjob_bandit23
+cat /usr/bin/cronjob_bandit23.sh
+whoami
+/usr/bin/cronjob_bandit23.sh
+cat /tmp/`echo I am user bandit23 | md5sum | cut -d ' ' -f 1`
+
+맨 마지막 줄만 해도 답은 나옴. 윗 내용은 그냥 과정을 쓴거임.
+
+23
+jc1udXuA1tiHqjIsL8yaapX5XIAI6i0n
+
+일반 텍스트에서 따음표와 리눅스에서 따음표가 다르다. 여기 따음표를 복붙하면 실행되지 않을 수 있다. 하지만 리눅스 화면의 따음표를 여기에 복사해놓은 것은 다시 복사해가도 실행된다.
+
+디렉토리와 파일 모두 권한을 줘야한다는게 가장 찾기 어려운 내용이었다.
+
+mkdir /tmp/tiger; chmod 777 /tmp/tiger; cd /tmp/tiger;  echo "cat /etc/bandit_pass/bandit24 > /tmp/tiger/pass" > a.sh; chmod 777 a.sh; cp /tmp/tiger/a.sh /var/spool/bandit24/a.sh
+ls -l /var/spool/bandit24/a.sh ; cat pass
+
+
+
+24
+UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ
+
+mkdir /tmp/24; cd /tmp/24
+for i in {0000..9999}; do echo "UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ" $i >> text; done
+Cat text | nc localhost 30002 >> ans; tail -f ans
+
+25
+uNG9O58gUE7snukf3bvZ0rxhtnjzSGzG
+Ls
+
+Ssh -i bandit26.sshkey bandit26@localhost
+cat /etc/passwd | grep bandit26
+cat /usr/bin/showtext
+
+
+창의 크기를 줄이던지 화면을 확대해서 한 화면에 나오는 문자의 수를 줄여야한다.
+
+Ssh -i bandit26.sshkey bandit26@localhost
+
+이러면 more 커맨드가 실행된 상태로 진입하게 된다.
+
+V
+
+Vim 에디터로 들어간다.
+
+:e /etc/bandit_pass/bandit26
+
+26
+창의 크기를 줄이던지 화면을 확대해서 한 화면에 나오는 문자의 수를 줄여야한다.
+
+5czgV9L3Xx8JPOyRbXh6lQbmIOWvPT6Z
+
+이러면 more 커맨드가 실행된 상태로 진입하게 된다.
+
+V
+
+Vim 에디터로 들어간다.
+
+:set shell ?
+:set shell=/bin/bash
+:shell
+Ls
+./bandit27-do
+./bandit27-do cat /etc/bandit_pass/bandit27
+
+
+27
+3ba3118a22e93127a4ed485be72ef5ea
+mkdir /tmp/27
+cd /tmp/27
+git clone ssh://bandit27-git@localhost/home/bandit27-git/repo
+cd repo/
+ls
+cat README
+
+28
+0ef186ac70e04ea33b4c1853d2526fa2
+
+mkdir /tmp/28
+cd /tmp/28
+git clone ssh://bandit28-git@localhost/home/bandit28-git/repo
+cd repo/
+ls
+cat README
+Git log
+Git diff c086d11a00c0648d095d04c089786efef5e01264 de2ebe2d5fd1598cd547f4d56247e053be3fdc38
+
+
+29
+bbc96594b4e001778eee9975372716b2
+
+mkdir /tmp/29
+cd /tmp/29
+git clone ssh://bandit29-git@localhost/home/bandit29-git/repo
+cd repo/
+ls
+cat README
+git branch -a
+git checkout origin/dev
+cat README.md
+
+30
+5b90576bedb2cc04c86a9e924ce42faf
+
+mkdir /tmp/30
+cd /tmp/30
+git clone ssh://bandit30-git@localhost/home/bandit30-git/repo
+cd repo/
+ls
+cat README
+git tag -l
+git show secret
+
+31
+47e603bb428404d265f59c42920d81e5
+
+mkdir /tmp/31
+cd /tmp/31
+git clone ssh://bandit31-git@localhost/home/bandit31-git/repo
+cd repo/
+ls
+cat README
+echo 'May I come in?' >> key.txt
+git add key.txt
+git add -f key.txt
+git commit -m
+git commit -m 'hi'
+git push
+
+
+32
+56a9bf19c63d650ce78e6ec0354ee45e
+
+$0
+cat /etc/bandit_pass/bandit33
+
+33
+c9c3199ddf4121b10cf581a98d51caee
+
+
+
+"
+
+

@@ -38,7 +38,7 @@ if(array_key_exists("filename", $_POST)) {
             echo "There was an error uploading the file, please try again!";
         }
     }
-} else 
+}
 
 // 만약 filename 이 있으면, filename의 값과 "upload"라는 키워드를 mrpf 함수에 넣는다.
 // 그러면 입력된 filename 값의 경로 정보와 "upload"를 mrp 함수에 넣는다.

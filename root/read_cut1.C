@@ -14,11 +14,11 @@ void clonesA_Event() {
 void read_cut(){
    //read the Tree
    TFile * hfile = new TFile("RPV_1400-1.root");
-   TTree *tree = (TTree*)hfile->Get("FatJet.PT");
+   TTree *tree = (TTree*)hfile->Get("Delphes");
  
    TUsrSevtData1 * event1 = 0;
    
-   tree->SetBranchAddress("top1",&event1);
+   tree->SetBranchAddress("Muon.PT",&event1);
 
    for (Int_t ev = 0; ev < 8; ev++) {
       tree->Show(ev);

@@ -1,2 +1,5 @@
 http://etetoolkit.org/docs/latest/tutorial/tutorial_trees.html
 https://root.cern.ch/root/htmldoc/guides/users-guide/Trees.html#why-should-you-use-a-tree
+http://atlas.fis.utfsm.cl/atlas/tutorial.root.utfsm.html#Getting_objects_from_files
+T->MakeClass("MyClass")
+

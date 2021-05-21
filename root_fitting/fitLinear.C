@@ -23,6 +23,7 @@ void fitLinear()
    //Access the fit resuts
    TF1 *f3 = gre3->GetFunction("pol3");
    f3->SetLineWidth(1);
+
    //Generate points along a sin(x)+sin(2x) function
    makePoints(n, x, y, e, 2);
    TGraphErrors *gre2=new TGraphErrors(n, x, y, 0, e);
@@ -41,6 +42,7 @@ void fitLinear()
    f2 = gre2->GetFunction("f2");
    f2->SetLineColor(kBlue);
    f2->SetLineWidth(1);
+
    //Generate points along a -2+exp(-x) function
    makePoints(n, x, y, e, 4);
    TGraphErrors *gre4=new TGraphErrors(n, x, y, 0, e);
@@ -55,6 +57,7 @@ void fitLinear()
    f4->SetName("f4");
    f4->SetLineColor(kRed);
    f4->SetLineWidth(1);
+   
    TLegend *leg = new TLegend(0.3, 0.7, 0.65, 0.9);
    leg->AddEntry(gre3, " -7 + 2*x*x + x*x*x", "p");
    leg->AddEntry(gre2, "sin(x) + sin(2*x)", "p");

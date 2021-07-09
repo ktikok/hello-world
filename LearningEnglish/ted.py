@@ -69,8 +69,17 @@ select_element = browser.find_element_by_xpath('//*[@id="content"]/div/div[4]/di
 select_object = Select(select_element)
 select_object.select_by_visible_text('English')
 # 영어 선택하기
+
+browser.find_element_by_xpath('//*[@id="ted-player"]/div[4]/div/div/div[2]/div/div[5]/button').click()
+# click subtitle controls
+browser.find_element_by_xpath('/html/body/div[3]/div/div/div/div[2]/div/div[1]/button').click()
+# click 'off'
+browser.find_element_by_xpath('/html/body/div[3]/div/div/div/div[1]/div/button').click()
+# click 'x'
+
 time.sleep(5)
 english_sentences=browser.find_elements_by_xpath('//*[@id="content"]/div/div[4]/div[2]/section/div/div[2]/p/span/a') # this for big window
+print(len(english_sentences))
 #english_sentences=browser.find_elements_by_xpath('//*[@id="content"]/div/div[4]/div[3]/section/div/div[2]/p/span/a') # this for smaill window
 # 시간 별로 파트가 나눠진 경우까지 포함하기 위해서 div[2]>div로 바꿈.
 # first sentence : //*[@id="content"]/div/div[4]/div[2]/section/div[2]/div[2]/p/span[1]/a
@@ -98,7 +107,7 @@ else:
 f.close()
 english_count=[answer_count[1]+answer_count[0]]
 #'''
-
+#print(url)
 def pause(pause_count):
     if pause_count==10:
         pass
@@ -120,9 +129,15 @@ def pause(pause_count):
                     browser.find_element_by_xpath('//*[@id="ted-player"]/div[4]/div/div/div[2]/div/div[1]/button').click()# 2021.07.01추가
                     #print("clicked play button")
                 except:
-                    print("try to pause again")
-                    time.sleep(0.1)
-                    pause(pause_count+1)
+                    try:
+                        browser.find_element_by_xpath('//*[@id="ted-player"]/div[3]/div[2]/div/div/div[2]/div/div[1]/div/div/div/button').click()# cancel moving on next video
+                        #                              //*[@id="ted-player"]/div[3]/div[2]/div/div/div[2]/div/div[1]/div/div/div/button
+                        print("You've finished the last line. Congratulation")
+                    except:
+                            
+                        print("try to pause again")
+                        time.sleep(0.1)
+                        pause(pause_count+1)
                 
 
 def english(english_count):
@@ -150,10 +165,13 @@ def play(sentences,english_count):
     else:
         sentences[english_count-2].click()
         
-def main():
+def main(url):
     #english_count=8
     #sentence_count=0
-    
+    #print(answer_count)
+    #print(english_count)
+    global english_sentences
+
     print(len(english_sentences))
     while(english_count[0]<len(english_sentences)):
         #sentence_count=sentence_count+1
@@ -184,10 +202,20 @@ def main():
             
             elif(guess=='raise'):
                 raise
-            
+            elif(guess=='reload'):
+                pause(0)
+                #print(url)
+                #print(url.split('=')[0]+'=en')
+                browser.get(url.split('=')[0]+'=en')
+                # reload page
+                # break
+                while (guess != 'ok' ):
+                    guess=input()     
+                english_sentences=browser.find_elements_by_xpath('//*[@id="content"]/div/div[4]/div[2]/section/div/div[2]/p/span/a') # this for big window
+
             elif(guess=='save'):
                 f=open('score_list7.txt','a')
-                answer_count[2]=answer_count[0]/(answer_count[1]+answer_count[0])*100
+                answer_count[2]=answer_count[0]/(answer_count[1]+answer_count[0])
                 for i in answer_count: 
                     f.write('%s ' % str(i))
                 f.write('\n')
@@ -196,27 +224,54 @@ def main():
                 print(answer_count)
                 print('score:',answer_count[0]/answer_count[1]*100)
                 raise
+            
             elif check==1 and len(guess)==len(answer):                    
                 #print('Correct answer!')
                 answer_count[0]=answer_count[0]+1
                 answer_count.append(english_count[0])
                 break
             else:
-                #print(english_sentences[english_count[0]-1].text)
-                #print('Wrong answer!')
+                print(english_sentences[english_count[0]-1].text)
+                print('Wrong answer!')
                 answer_count[1]=answer_count[1]+1
                 break
+    if answer_count[0] != english_count[0]:
+        answer_count[0]=0
+        answer_count[1]=0
+        answer_count[2]=0
+        english_count[0]=0
+        
+        main(url)
+
 
 if __name__=='__main__':
-    main()
-    answer_count[2]=answer_count[0]/(answer_count[1]+answer_count[0])*100
-    f=open('score_list7.txt','a')
-    for i in answer_count: 
-        f.write('%s ' % str(i))
-        
-    f.write('\n')
-    f.close()
-    print(english_count[0])
-    print('correct : ', answer_count[0], 'wrong : ', answer_count[1], answer_count[0],)
-    print('score:',answer_count[2])
-    print('done')
+    try:
+        main(url)
+        print("no error in main")
+        answer_count[2]=answer_count[0]/(answer_count[1]+answer_count[0])
+        f=open('score_list7.txt','a')
+        for i in answer_count: 
+            f.write('%s ' % str(i))
+            
+        f.write('\n')
+        f.close()
+        print(english_count[0])
+        print('correct : ', answer_count[0], 'wrong : ', answer_count[1] )
+        print('score:',answer_count[2])
+        print('done')
+    except:
+        raise
+        print("An error has occurred in main function.")
+        answer_count[2]=answer_count[0]/(answer_count[1]+answer_count[0])
+        f=open('score_list7.txt','a')
+        for i in answer_count: 
+            f.write('%s ' % str(i))
+            
+        f.write('\n')
+        f.close()
+        print(english_count[0])
+        print('correct : ', answer_count[0], 'wrong : ', answer_count[1])
+        print('score:',answer_count[2])
+        print('done')
+        # //*[@id="ted-player"]/div[3]/div[2]/div/div/div[2]
+        # //*[@id="ted-player"]/div[3]/div[2]/div/div/div[2]/div/div[1]/div/div/button

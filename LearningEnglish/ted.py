@@ -26,18 +26,36 @@ for i in range(97,123):
     
 special_symbal_1=['.','\'','\"','?','!']
 
-lecture=1
 
 browser=webdriver.Chrome('chromedriver_linux64/chromedriver')
 # /home/yhep_ex_04/hello-world/LearningEnglish/chromedriver_linux64/chromedriver
 browser.maximize_window()
 #브라우저 창을 최대로
+
+
+
+
 #name_title='yasin kakande what's missing in the global debate over refugees
 browser.get('https://www.ted.com/talks?sort=popular&duration=0-6&language=ko')#  &language=ko&duration=0-6, popular
 # https://www.ted.com/talks?sort=popular&duration=0-6&language=ko
 # 'https://www.ted.com/talks?sort=newest&language=ko&duration=0-6'
 
-browser.find_element_by_xpath('//*[@id="browse-results"]/div[1]/div['+str(lecture)+']/div/div/div/div[2]/h4[2]/a').click()
+# video title
+# //*[@id="browse-results"]/div[1]/div[1]/div/div/div/div[2]/h4[2]/a
+for i in range(1,999):
+    title = browser.find_element_by_xpath('//*[@id="browse-results"]/div[1]/div['+str(i)+']/div/div/div/div[2]/h4[2]/a').text
+    f=open('finished_videos.txt')
+    f_list=f.readlines()
+    f.close()
+    #print(f_list[1])
+    #print(title+' \n')
+    #print(title+' \n'==f_list[1])
+    if title+' \n' not in f_list:
+        browser.find_element_by_xpath('//*[@id="browse-results"]/div[1]/div['+str(i)+']/div/div/div/div[2]/h4[2]/a').click()
+        break
+
+print('Title :',title)
+
 #time.sleep(3) # 페이지 뜨는 시간이 느려서... 뜨기까지 기다려야함..
 
 
@@ -86,6 +104,7 @@ print(len(english_sentences))
 # //*[@id="content"]/div/div[4]/div[2]/section/div[2]/div[2]/p/span[1]/a
 
 url=browser.current_url
+
 f=open('score_list7.txt')
 f_list=f.readlines()
 writer_title1=f_list[-1].split(' ')[3].split('/')[4]
@@ -108,7 +127,9 @@ f.close()
 english_count=[answer_count[1]+answer_count[0]]
 #'''
 #print(url)
+
 def pause(pause_count):
+    # I hope that one of these bottons will work.
     if pause_count==10:
         pass
     else:
@@ -120,24 +141,31 @@ def pause(pause_count):
             #print("script off")
         except:
             try:
-                browser.find_element_by_xpath('//*[@id="ted-player"]/div[4]/button').click()# 2021.07.01추가
-                #print("script on")
+                browser.find_element_by_xpath('//*[@id="ted-player"]/div[3]/div/div/div[2]/div/div[1]/button').click()
             except:
                 try:
-                    # //*[@id="ted-player"]/div[4]/button
-                    # //*[@id="ted-player"]/div[4]/button
-                    browser.find_element_by_xpath('//*[@id="ted-player"]/div[4]/div/div/div[2]/div/div[1]/button').click()# 2021.07.01추가
-                    #print("clicked play button")
+                    browser.find_element_by_xpath('/div/div/div[2]/div/div[1]/button').click()
                 except:
                     try:
-                        browser.find_element_by_xpath('//*[@id="ted-player"]/div[3]/div[2]/div/div/div[2]/div/div[1]/div/div/div/button').click()# cancel moving on next video
-                        #                              //*[@id="ted-player"]/div[3]/div[2]/div/div/div[2]/div/div[1]/div/div/div/button
-                        print("You've finished the last line. Congratulation")
+                        browser.find_element_by_xpath('//*[@id="ted-player"]/div[4]/button').click()# 2021.07.01추가
+
+                        #print("script on")
                     except:
-                            
-                        print("try to pause again")
-                        time.sleep(0.1)
-                        pause(pause_count+1)
+                        try:
+                            # //*[@id="ted-player"]/div[4]/button
+                            # //*[@id="ted-player"]/div[4]/button
+                            browser.find_element_by_xpath('//*[@id="ted-player"]/div[4]/div/div/div[2]/div/div[1]/button').click()# 2021.07.01추가
+                            #print("clicked play button")
+                        except:
+                            try:
+                                browser.find_element_by_xpath('//*[@id="ted-player"]/div[3]/div[2]/div/div/div[2]/div/div[1]/div/div/div/button').click()# cancel moving on next video
+                                #                              //*[@id="ted-player"]/div[3]/div[2]/div/div/div[2]/div/div[1]/div/div/div/button
+                                print("You've finished the last line. Congratulation")
+                            except:
+                                    
+                                print("try to pause again")
+                                time.sleep(0.1)
+                                pause(pause_count+1)
                 
 
 def english(english_count):
@@ -164,6 +192,22 @@ def play(sentences,english_count):
         sentences[english_count-1].click()
     else:
         sentences[english_count-2].click()
+
+def finish(url):
+    global answer_count
+
+    answer_count[2]=answer_count[0]/(answer_count[1]+answer_count[0])
+    f=open('score_list7.txt','a')
+    for i in answer_count: 
+        f.write('%s ' % str(i))
+    f.write('\n')
+    f.close()
+    print('it is',english_count[0],'th sentence')
+    print('correct : ', answer_count[0], 'wrong : ', answer_count[1])
+    print('score:',answer_count[2])
+    print('done')
+    
+
         
 def main(url):
     #english_count=8
@@ -172,7 +216,9 @@ def main(url):
     #print(english_count)
     global english_sentences
 
-    print(len(english_sentences))
+    print("you will listen", len(english_sentences), "lines")
+    print('if you want to do some thing, use the below special keywords.')
+    print("raise : raise an error\nreload : reload your webpage(use something goes wrong)\nsave : raise an error and your progress will be saved\nenter : if you want to pause or play your video, enter without any other letter\n")
     while(english_count[0]<len(english_sentences)):
         #sentence_count=sentence_count+1
         english_count[0]=english_count[0]+1
@@ -214,7 +260,7 @@ def main(url):
                 english_sentences=browser.find_elements_by_xpath('//*[@id="content"]/div/div[4]/div[2]/section/div/div[2]/p/span/a') # this for big window
 
             elif(guess=='save'):
-                f=open('score_list7.txt','a')
+                """f=open('score_list7.txt','a')
                 answer_count[2]=answer_count[0]/(answer_count[1]+answer_count[0])
                 for i in answer_count: 
                     f.write('%s ' % str(i))
@@ -222,7 +268,7 @@ def main(url):
                 f.close()
                 print(english_count[0])
                 print(answer_count)
-                print('score:',answer_count[0]/answer_count[1]*100)
+                print('score:',answer_count[0]/answer_count[1]*100)"""
                 raise
             
             elif check==1 and len(guess)==len(answer):                    
@@ -242,36 +288,16 @@ def main(url):
         english_count[0]=0
         
         main(url)
-
+    f=open('finished_videos.txt','a')
+    f.write('%s ' % str(title))
+    f.write('\n')
+    f.close()
 
 if __name__=='__main__':
     try:
         main(url)
         print("no error in main")
-        answer_count[2]=answer_count[0]/(answer_count[1]+answer_count[0])
-        f=open('score_list7.txt','a')
-        for i in answer_count: 
-            f.write('%s ' % str(i))
-            
-        f.write('\n')
-        f.close()
-        print(english_count[0])
-        print('correct : ', answer_count[0], 'wrong : ', answer_count[1] )
-        print('score:',answer_count[2])
-        print('done')
+        finish(url)
     except:
-        raise
         print("An error has occurred in main function.")
-        answer_count[2]=answer_count[0]/(answer_count[1]+answer_count[0])
-        f=open('score_list7.txt','a')
-        for i in answer_count: 
-            f.write('%s ' % str(i))
-            
-        f.write('\n')
-        f.close()
-        print(english_count[0])
-        print('correct : ', answer_count[0], 'wrong : ', answer_count[1])
-        print('score:',answer_count[2])
-        print('done')
-        # //*[@id="ted-player"]/div[3]/div[2]/div/div/div[2]
-        # //*[@id="ted-player"]/div[3]/div[2]/div/div/div[2]/div/div[1]/div/div/button
+        finish(url)

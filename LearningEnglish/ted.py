@@ -77,8 +77,13 @@ try:
     # If there are theree options
     
 except:
-    browser.find_element_by_xpath('//*[@id="content"]/div/div[4]/div[1]/div/a[2]/span[1]').click()
-    # if there are two options : details, transicript
+    try:
+        browser.find_element_by_xpath('//*[@id="content"]/div/div[4]/div[1]/div/a[2]/span[1]').click()
+        # if there are two options : details, transicript
+
+    except:
+        browser.find_element_by_xpath('//*[@id="tabs--1--tab--1"]/span').click()
+        # if the pane is located on the left
 
 select_element = browser.find_element_by_xpath('//*[@id="content"]/div/div[4]/div[2]/section/div[1]/div[1]/select')
 #//*[@id="content"]/div/div[4]/div[2]/section/div[1]/div[1]/select
@@ -215,10 +220,10 @@ def main(url):
     #print(answer_count)
     #print(english_count)
     global english_sentences
-
-    print("you will listen", len(english_sentences), "lines")
-    print('if you want to do some thing, use the below special keywords.')
-    print("raise : raise an error\nreload : reload your webpage(use something goes wrong)\nsave : raise an error and your progress will be saved\nenter : if you want to pause or play your video, enter without any other letter\n")
+    print("\nyou will listen", len(english_sentences)-len(answer_count[4:]), "lines")
+    
+    
+    
     while(english_count[0]<len(english_sentences)):
         #sentence_count=sentence_count+1
         english_count[0]=english_count[0]+1
@@ -281,6 +286,7 @@ def main(url):
                 print('Wrong answer!')
                 answer_count[1]=answer_count[1]+1
                 break
+    print('\ncorrect : ', answer_count[0], 'wrong : ', answer_count[1], 'score:',answer_count[0]/(answer_count[0]+answer_count[1]))
     if answer_count[0] != english_count[0]:
         answer_count[0]=0
         answer_count[1]=0
@@ -288,15 +294,19 @@ def main(url):
         english_count[0]=0
         
         main(url)
-    f=open('finished_videos.txt','a')
-    f.write('%s ' % str(title))
-    f.write('\n')
-    f.close()
+    else:
+        f=open('finished_videos.txt','a')
+        f.write('%s ' % str(title))
+        f.write('\n')
+        f.close()
 
 if __name__=='__main__':
     try:
+        #print("you will listen", len(english_sentences), "lines")
+        print('if you want to do some thing, use the below special keywords.')
+        print("raise : raise an error\nreload : reload your webpage(use something goes wrong)\nsave : raise an error and your progress will be saved\nenter : if you want to pause or play your video, enter without any other letter\n")
         main(url)
-        print("no error in main")
+        print("\nno error in main function")
         finish(url)
     except:
         print("An error has occurred in main function.")

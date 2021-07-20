@@ -133,4 +133,6 @@ git add .
 git commit -m "blabla"
 git push
 
+find where-to-look criteria action 2>/dev/null
+
 MULTILINE-COMMENT

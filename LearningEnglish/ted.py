@@ -16,6 +16,11 @@ from selenium import webdriver
 from selenium.webdriver.support.select import Select
 import time
 
+# -------------------- scrolling example---------------------
+from selenium.webdriver.common.keys import Keys
+# -------------------- scrolling example---------------------
+
+
 special_symbal=[]
 
 for i in range(65,91):
@@ -26,9 +31,10 @@ for i in range(97,123):
     
 special_symbal_1=['.','\'','\"','?','!']
 
-
-browser=webdriver.Chrome('chromedriver_linux64/chromedriver')
-# /home/yhep_ex_04/hello-world/LearningEnglish/chromedriver_linux64/chromedriver
+try:
+    browser=webdriver.Chrome('chromedriver_linux64/chromedriver')
+except:
+    browser=webdriver.Chrome('chromedriver_win32\chromedriver.exe')
 browser.maximize_window()
 #브라우저 창을 최대로
 
@@ -39,15 +45,20 @@ browser.maximize_window()
 browser.get('https://www.ted.com/talks?sort=popular&duration=0-6&language=ko')#  &language=ko&duration=0-6, popular
 # https://www.ted.com/talks?sort=popular&duration=0-6&language=ko
 # 'https://www.ted.com/talks?sort=newest&language=ko&duration=0-6'
-
+print(1)
+with open('finished_videos.txt', encoding='utf-8') as f:
+    #f=open()
+    f_list=f.readlines()
+print(2)
 # video title
 # //*[@id="browse-results"]/div[1]/div[1]/div/div/div/div[2]/h4[2]/a
 for i in range(1,999):
     title = browser.find_element_by_xpath('//*[@id="browse-results"]/div[1]/div['+str(i)+']/div/div/div/div[2]/h4[2]/a').text
-    f=open('finished_videos.txt')
-    f_list=f.readlines()
-    f.close()
-    #print(f_list[1])
+    #with open('me/?/nu.json', encoding='//-8') as json_file:
+    # f=open('finished_videos.txt')
+    # f_list=f.readlines()
+    # f.close()
+    #print(f_list[1])///
     #print(title+' \n')
     #print(title+' \n'==f_list[1])
     if title+' \n' not in f_list:
@@ -70,20 +81,30 @@ except:
 """
 
 #'''
-time.sleep(5)
+#time.sleep(5)
 # changing webpage taking time
-try:
-    browser.find_element_by_xpath('//*[@id="content"]/div/div[4]/div[1]/div/a[3]').click()#transcript 누르기
-    # If there are theree options
+for i in range(10):
     
-except:
     try:
-        browser.find_element_by_xpath('//*[@id="content"]/div/div[4]/div[1]/div/a[2]/span[1]').click()
-        # if there are two options : details, transicript
-
+        browser.find_element_by_xpath('//*[@id="content"]/div/div[4]/div[1]/div/a[3]').click()#transcript 누르기
+        # If there are theree options
+        print('there are three options')
+        break
     except:
-        browser.find_element_by_xpath('//*[@id="tabs--1--tab--1"]/span').click()
-        # if the pane is located on the left
+        try:
+            browser.find_element_by_xpath('//*[@id="content"]/div/div[4]/div[1]/div/a[2]/span[1]').click()
+            # if there are two options : details, transicript
+            print('there are two options')
+            break
+        except:
+            try:
+                browser.find_element_by_xpath('//*[@id="tabs--1--tab--1"]/span').click()
+                # if the pane is located on the left
+                print('options are located on the left')
+                break
+            except:
+                print('Waiting for webpage')
+                time.sleep(1)
 
 select_element = browser.find_element_by_xpath('//*[@id="content"]/div/div[4]/div[2]/section/div[1]/div[1]/select')
 #//*[@id="content"]/div/div[4]/div[2]/section/div[1]/div[1]/select
@@ -100,8 +121,13 @@ browser.find_element_by_xpath('/html/body/div[3]/div/div/div/div[2]/div/div[1]/b
 browser.find_element_by_xpath('/html/body/div[3]/div/div/div/div[1]/div/button').click()
 # click 'x'
 
-time.sleep(5)
-english_sentences=browser.find_elements_by_xpath('//*[@id="content"]/div/div[4]/div[2]/section/div/div[2]/p/span/a') # this for big window
+for i in range(10):
+    try:
+        time.sleep(1)
+        english_sentences=browser.find_elements_by_xpath('//*[@id="content"]/div/div[4]/div[2]/section/div/div[2]/p/span/a') # this for big window
+        break
+    except:
+        print('Wating for webpage.')
 print(len(english_sentences))
 #english_sentences=browser.find_elements_by_xpath('//*[@id="content"]/div/div[4]/div[3]/section/div/div[2]/p/span/a') # this for smaill window
 # 시간 별로 파트가 나눠진 경우까지 포함하기 위해서 div[2]>div로 바꿈.
@@ -135,6 +161,7 @@ english_count=[answer_count[1]+answer_count[0]]
 
 def pause(pause_count):
     # I hope that one of these bottons will work.
+
     if pause_count==10:
         pass
     else:
@@ -153,7 +180,7 @@ def pause(pause_count):
                 except:
                     try:
                         browser.find_element_by_xpath('//*[@id="ted-player"]/div[4]/button').click()# 2021.07.01추가
-
+                        
                         #print("script on")
                     except:
                         try:
@@ -167,10 +194,15 @@ def pause(pause_count):
                                 #                              //*[@id="ted-player"]/div[3]/div[2]/div/div/div[2]/div/div[1]/div/div/div/button
                                 print("You've finished the last line. Congratulation")
                             except:
-                                    
-                                print("try to pause again")
-                                time.sleep(0.1)
-                                pause(pause_count+1)
+                                try:
+                                    browser.find_element_by_xpath('//*[@id="ted-player"]/div[3]/button').click() 
+                                    # windows, on my laptop
+                                except:
+                                    print("try to pause again")
+                                    browser.find_element_by_tag_name('html').send_keys(Keys.HOME)
+
+                                    time.sleep(0.1)
+                                    pause(pause_count+1)
                 
 
 def english(english_count):

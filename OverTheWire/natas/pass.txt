@@ -224,3 +224,8 @@ http://natas20.natas.labs.overthewire.org/?debug=true&name=foo%0Aadmin 1
 
 21
 IFekPyrQXftziDEsUr3x21sYuahypdgJ
+
+// use this 21.py
+// or add this : ?debug=true&align=center&fontsize=100%&bgcolor=yellow&submit=Update&admin=1
+22
+chG9fbe1Tq2eWVMgjYYD1MsfIvN461kJ

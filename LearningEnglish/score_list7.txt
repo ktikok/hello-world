@@ -145,3 +145,4 @@
 0 3 4 david_gallo_underwater_astonishments 
 0 3 1 https://www.ted.com/talks/david_gallo_underwater_astonishments/transcript?language=ko 
 0 1 2 david_gallo_underwater_astonishments 
+6 28 34 https://www.ted.com/talks/david_gallo_underwater_astonishments/transcript?language=ko 6 9 12 15 16 32 

@@ -9,84 +9,70 @@ This is a temporary script file.
 2021.07.06
 this file is tested on Ubuntu
 1. 원래는 영어 자막을 클릭했지만, select에서 옵션을 선택하는 것으로 바꿨다.
-2. pause가 안되서, 
 """
 
 from selenium import webdriver
 from selenium.webdriver.support.select import Select
-import time
 
-# -------------------- scrolling example---------------------
+import time
+# for time sleep
+
 from selenium.webdriver.common.keys import Keys
-# -------------------- scrolling example---------------------
+# to scroll up a webpage
 
 
 special_symbal=[]
-
 for i in range(65,91):
     special_symbal.append(chr(i))
-print('')
+    # capital letters A-Z
 for i in range(97,123):
     special_symbal.append(chr(i))
-    
-special_symbal_1=['.','\'','\"','?','!']
+    # a-z
 
 try:
     browser=webdriver.Chrome('chromedriver_linux64/chromedriver')
+    print('open linux broswer')
+    # for ubuntu
 except:
     browser=webdriver.Chrome('chromedriver_win32\chromedriver.exe')
+    print('open windows broswer')
+    # for windows
 browser.maximize_window()
-#브라우저 창을 최대로
+# 브라우저 창을 최대로
+browser.get('https://www.ted.com/talks?sort=popular&duration=0-6&language=ko')
+# &language=ko&duration=0-6, popular
 
 
+# bring my finished video titles
+try:
+    with open('finished_videos.txt', encoding='utf-8') as f:
+        # for windows and linux os
+        f_list=f.readlines()
+        print('open utf8 file')
+        #print(f_list[0])
+except: 
+    with open('finished_videos.txt', encoding='cp949') as f:
+        f_list=f.readlines()
+        print('open linux file')
+        #print(f_list)   
 
 
-#name_title='yasin kakande what's missing in the global debate over refugees
-browser.get('https://www.ted.com/talks?sort=popular&duration=0-6&language=ko')#  &language=ko&duration=0-6, popular
-# https://www.ted.com/talks?sort=popular&duration=0-6&language=ko
-# 'https://www.ted.com/talks?sort=newest&language=ko&duration=0-6'
-print(1)
-with open('finished_videos.txt', encoding='utf-8') as f:
-    #f=open()
-    f_list=f.readlines()
-print(2)
-# video title
-# //*[@id="browse-results"]/div[1]/div[1]/div/div/div/div[2]/h4[2]/a
 for i in range(1,999):
     title = browser.find_element_by_xpath('//*[@id="browse-results"]/div[1]/div['+str(i)+']/div/div/div/div[2]/h4[2]/a').text
-    #with open('me/?/nu.json', encoding='//-8') as json_file:
-    # f=open('finished_videos.txt')
-    # f_list=f.readlines()
-    # f.close()
-    #print(f_list[1])///
-    #print(title+' \n')
-    #print(title+' \n'==f_list[1])
-    if title+' \n' not in f_list:
+    if title+'\n' not in f_list:
+        # check if I have already finished the video or not 
         browser.find_element_by_xpath('//*[@id="browse-results"]/div[1]/div['+str(i)+']/div/div/div/div[2]/h4[2]/a').click()
         break
 
 print('Title :',title)
 
-#time.sleep(3) # 페이지 뜨는 시간이 느려서... 뜨기까지 기다려야함..
-
-
-"""
-try:
-    browser.find_element_by_xpath('//*[@id="content"]/div/div[4]/div[3]/section/div[1]/div[1]/select/option[1]').click()#english 누르기
-except:
-    browser.find_element_by_xpath('//*[@id="content"]/div/div[4]/div[2]/section/div[1]/div[1]/select/option[1]').click()#english 누르기
-#English
-#화면크기에 따라 버튼들의 위치가 바뀌어 오류가 날 수 있다.
-
-"""
-
-#'''
-#time.sleep(5)
-# changing webpage taking time
+# print(f_list[0])
+# print(title)
+# print(f_list[0]==title+'\n')
+# click transcript
 for i in range(10):
-    
     try:
-        browser.find_element_by_xpath('//*[@id="content"]/div/div[4]/div[1]/div/a[3]').click()#transcript 누르기
+        browser.find_element_by_xpath('//*[@id="content"]/div/div[4]/div[1]/div/a[3]').click()
         # If there are theree options
         print('there are three options')
         break
@@ -100,22 +86,27 @@ for i in range(10):
             try:
                 browser.find_element_by_xpath('//*[@id="tabs--1--tab--1"]/span').click()
                 # if the pane is located on the left
-                print('options are located on the left')
+                print('options are located on the right side of the webpage')
                 break
             except:
-                print('Waiting for webpage')
+                print('Waiting for webpage(I will click "transcript")')
                 time.sleep(1)
+                # sometimes, loading elements takes long time.
 
 select_element = browser.find_element_by_xpath('//*[@id="content"]/div/div[4]/div[2]/section/div[1]/div[1]/select')
-#//*[@id="content"]/div/div[4]/div[2]/section/div[1]/div[1]/select
 # 목차 가져오기
-
 select_object = Select(select_element)
 select_object.select_by_visible_text('English')
 # 영어 선택하기
 
-browser.find_element_by_xpath('//*[@id="ted-player"]/div[4]/div/div/div[2]/div/div[5]/button').click()
-# click subtitle controls
+for i in range(10):
+    try:
+        browser.find_element_by_xpath('//*[@id="ted-player"]/div[4]/div/div/div[2]/div/div[5]/button').click()
+        break
+    except:
+        print('loading for subtitle controls')
+        time.sleep(1)
+        # click subtitle controls
 browser.find_element_by_xpath('/html/body/div[3]/div/div/div/div[2]/div/div[1]/button').click()
 # click 'off'
 browser.find_element_by_xpath('/html/body/div[3]/div/div/div/div[1]/div/button').click()
@@ -123,26 +114,37 @@ browser.find_element_by_xpath('/html/body/div[3]/div/div/div/div[1]/div/button')
 
 for i in range(10):
     try:
-        time.sleep(1)
-        english_sentences=browser.find_elements_by_xpath('//*[@id="content"]/div/div[4]/div[2]/section/div/div[2]/p/span/a') # this for big window
+        english_sentences=browser.find_elements_by_xpath('//*[@id="content"]/div/div[4]/div[2]/section/div/div[2]/p/span/a') 
+        # this for big window
+        # //*[@id="content"]/div/div[4]/div[2]/section/div/div[2]/p/span/a
+        # //*[@id="content"]/div/div[4]/div[2]/section/div[2]/div[2]/p/span[1]/a
+        # //*[@id="content"]/div/div[4]/div[2]/section/div[2]/div[2]/p/span[1]/a
+        # //*[@id="content"]/div/div[4]/div[2]/section/div[3]/div[2]/p/span[1]/a
+        #  시간 별로 파트가 나눠진 경우까지 포함하기 위해서 div[2]>div로 바꿈.
+        #print(english_sentences)
         break
     except:
-        print('Wating for webpage.')
-print(len(english_sentences))
-#english_sentences=browser.find_elements_by_xpath('//*[@id="content"]/div/div[4]/div[3]/section/div/div[2]/p/span/a') # this for smaill window
-# 시간 별로 파트가 나눠진 경우까지 포함하기 위해서 div[2]>div로 바꿈.
-# first sentence : //*[@id="content"]/div/div[4]/div[2]/section/div[2]/div[2]/p/span[1]/a
-# //*[@id="content"]/div/div[4]/div[2]/section/div[2]/div[2]/p/span[1]/a
+        print('Wating for webpage(bringing sentences)')
+        time.sleep(1)
+
+print("how many sentences? :",len(english_sentences))
 
 url=browser.current_url
 
 f=open('score_list7.txt')
+# f=open('score_score.txt')
 f_list=f.readlines()
-writer_title1=f_list[-1].split(' ')[3].split('/')[4]
+writer_title1=f_list[-1].split(' ')[3]
+# writer_title1=f_list[-1].split(' ')[3].split('/')[4]
+# title, in the text file
 writer_title2=url.split('/')[4]
+# webpage's title
+
 if writer_title2==writer_title1:
     if int(f_list[-1].split(' ')[1])+int(f_list[-1].split(' ')[0])<len(english_sentences):
+        # if wrong + crrect < total sentence nunber
         answer_count=[int(f_list[-1].split(' ')[0]), int(f_list[-1].split(' ')[1]), 0, url]
+        # [correct, wrong, 0, url]
         for i in f_list[-1].split(' ')[4:-1]:
             answer_count.append(int(i))
     elif len(f_list[-1].split(' ')[4:-1])<len(english_sentences):
@@ -152,10 +154,11 @@ if writer_title2==writer_title1:
     else:
         answer_count=[0,0,0,url]
 else:        
-    answer_count=[0,0,0,url]
+    answer_count=[0,0,0,writer_title2]
+    # answer_count=[0,0,0,url]
 
 f.close()
-english_count=[answer_count[1]+answer_count[0]]
+english_count=[answer_count[2]]
 #'''
 #print(url)
 
@@ -226,14 +229,22 @@ def english(english_count):
 
 def play(sentences,english_count):
     if english_count==1:
-        sentences[english_count-1].click()
+        #print(sentences[english_count-1])
+        for i in range(10):
+            try:
+                sentences[english_count-1].click()
+                break
+            except:
+                print("trying to click a sentence")
+                time.sleep(1)
     else:
         sentences[english_count-2].click()
 
 def finish(url):
     global answer_count
 
-    answer_count[2]=answer_count[0]/(answer_count[1]+answer_count[0])
+    # answer_count[2]=answer_count[0]/(answer_count[1]+answer_count[0])
+    answer_count[2]=english_count[0]
     f=open('score_list7.txt','a')
     for i in answer_count: 
         f.write('%s ' % str(i))
@@ -252,7 +263,7 @@ def main(url):
     #print(answer_count)
     #print(english_count)
     global english_sentences
-    print("\nyou will listen", len(english_sentences)-len(answer_count[4:]), "lines")
+    print("you will listen", len(english_sentences)-len(answer_count[4:]), "lines")
     
     
     
@@ -265,6 +276,7 @@ def main(url):
             
             answer_count[0]=answer_count[0]+1
             continue
+            
         english(english_count[0])
             
         play(english_sentences,english_count[0])
@@ -283,8 +295,6 @@ def main(url):
             if(guess==''):
                 pause(0)
             
-            elif(guess=='raise'):
-                raise
             elif(guess=='reload'):
                 pause(0)
                 #print(url)
@@ -297,15 +307,6 @@ def main(url):
                 english_sentences=browser.find_elements_by_xpath('//*[@id="content"]/div/div[4]/div[2]/section/div/div[2]/p/span/a') # this for big window
 
             elif(guess=='save'):
-                """f=open('score_list7.txt','a')
-                answer_count[2]=answer_count[0]/(answer_count[1]+answer_count[0])
-                for i in answer_count: 
-                    f.write('%s ' % str(i))
-                f.write('\n')
-                f.close()
-                print(english_count[0])
-                print(answer_count)
-                print('score:',answer_count[0]/answer_count[1]*100)"""
                 raise
             
             elif check==1 and len(guess)==len(answer):                    
@@ -327,8 +328,8 @@ def main(url):
         
         main(url)
     else:
-        f=open('finished_videos.txt','a')
-        f.write('%s ' % str(title))
+        f=open('finished_videos.txt', 'a', encoding='utf-8')
+        f.write('%s' % str(title))
         f.write('\n')
         f.close()
 
@@ -336,10 +337,12 @@ if __name__=='__main__':
     try:
         #print("you will listen", len(english_sentences), "lines")
         print('if you want to do some thing, use the below special keywords.')
-        print("raise : raise an error\nreload : reload your webpage(use something goes wrong)\nsave : raise an error and your progress will be saved\nenter : if you want to pause or play your video, enter without any other letter\n")
+        print("reload : reload your webpage(use something goes wrong)\nsave : raise an error and your progress will be saved\nenter : if you want to pause or play your video, enter without any other letter")
         main(url)
         print("\nno error in main function")
         finish(url)
     except:
         print("An error has occurred in main function.")
         finish(url)
+        raise
+        # two see error log

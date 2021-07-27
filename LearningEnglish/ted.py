@@ -158,7 +158,7 @@ else:
     # answer_count=[0,0,0,url]
 
 f.close()
-english_count=[answer_count[2]]
+english_count=[answer_count[0]+answer_count[1]]
 #'''
 #print(url)
 
@@ -240,11 +240,14 @@ def play(sentences,english_count):
     else:
         sentences[english_count-2].click()
 
+    browser.find_element_by_tag_name('html').send_keys(Keys.HOME)
+
 def finish(url):
     global answer_count
 
     # answer_count[2]=answer_count[0]/(answer_count[1]+answer_count[0])
-    answer_count[2]=english_count[0]
+    answer_count[2]=answer_count[0]/(answer_count[0]+answer_count[1])
+    # answer_count[2]=english_count[0]
     f=open('score_list7.txt','a')
     for i in answer_count: 
         f.write('%s ' % str(i))
@@ -265,7 +268,8 @@ def main(url):
     global english_sentences
     print("you will listen", len(english_sentences)-len(answer_count[4:]), "lines")
     
-    
+    if english_count[0] != 0:
+        englsih_count[0] = english_count[0] - 1
     
     while(english_count[0]<len(english_sentences)):
         #sentence_count=sentence_count+1
@@ -323,7 +327,7 @@ def main(url):
     if answer_count[0] != english_count[0]:
         answer_count[0]=0
         answer_count[1]=0
-        answer_count[2]=0
+        # answer_count[2]=0
         english_count[0]=0
         
         main(url)

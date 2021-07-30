@@ -149,3 +149,4 @@
 0 2 3 noah_zandan_the_language_of_lying 21 24 37 39 40 41 72 73 94 
 0 2 0.0 https://www.ted.com/talks/noah_zandan_the_language_of_lying/transcript?language=ko 21 24 37 39 40 41 72 73 94 
 7 28 0.2 noah_zandan_the_language_of_lying 2 4 5 18 21 24 25 
+7 28 0.2 https://www.ted.com/talks/noah_zandan_the_language_of_lying/transcript?language=ko 2 4 5 18 21 24 25 

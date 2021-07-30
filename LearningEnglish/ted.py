@@ -269,7 +269,7 @@ def main(url):
     print("you will listen", len(english_sentences)-len(answer_count[4:]), "lines")
     
     if english_count[0] != 0:
-        englsih_count[0] = english_count[0] - 1
+        english_count[0] = english_count[0] - 1
     
     while(english_count[0]<len(english_sentences)):
         #sentence_count=sentence_count+1

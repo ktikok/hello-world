@@ -141,24 +141,29 @@ writer_title2=url.split('/')[4]
 # webpage's title
 
 if writer_title2==writer_title1:
-    if int(f_list[-1].split(' ')[1])+int(f_list[-1].split(' ')[0])<len(english_sentences):
-        # if wrong + crrect < total sentence nunber
-        answer_count=[int(f_list[-1].split(' ')[0]), int(f_list[-1].split(' ')[1]), 0, url]
-        # [correct, wrong, 0, url]
+    # if int(f_list[-1].split(' ')[1])+int(f_list[-1].split(' ')[0])<len(english_sentences):
+    #     # if wrong + crrect < total sentence nunber
+    #     answer_count=[int(f_list[-1].split(' ')[0]), int(f_list[-1].split(' ')[1]), 0, url]
+    #     # [correct, wrong, 0, url]
+    #     for i in f_list[-1].split(' ')[4:-1]:
+    #         answer_count.append(int(i))
+    # elif len(f_list[-1].split(' ')[4:-1])<len(english_sentences):
+    #     answer_count=[0,0,0,url]
+    #     for i in f_list[-1].split(' ')[4:-1]:
+    #         answer_count.append(int(i))
+    if len(f_list[-1].split(' ')[4:-1])<len(english_sentences):
+        answer_count=[0,0,int(f_list[-1].split(' ')[2]),writer_title2]
         for i in f_list[-1].split(' ')[4:-1]:
-            answer_count.append(int(i))
-    elif len(f_list[-1].split(' ')[4:-1])<len(english_sentences):
-        answer_count=[0,0,0,url]
-        for i in f_list[-1].split(' ')[4:-1]:
-            answer_count.append(int(i))
+            answer_count.append(int(i))        
     else:
-        answer_count=[0,0,0,url]
+        answer_count=[0,0,0,writer_title2]
 else:        
     answer_count=[0,0,0,writer_title2]
     # answer_count=[0,0,0,url]
 
 f.close()
-english_count=[answer_count[0]+answer_count[1]]
+english_count=[answer_count[2]]
+# english_count=[answer_count[0]+answer_count[1]]
 #'''
 #print(url)
 
@@ -246,8 +251,8 @@ def finish(url):
     global answer_count
 
     # answer_count[2]=answer_count[0]/(answer_count[1]+answer_count[0])
-    answer_count[2]=answer_count[0]/(answer_count[0]+answer_count[1])
-    # answer_count[2]=english_count[0]
+    # answer_count[2]=answer_count[0]/(answer_count[0]+answer_count[1])
+    answer_count[2]=english_count[0]
     f=open('score_list7.txt','a')
     for i in answer_count: 
         f.write('%s ' % str(i))
@@ -255,7 +260,7 @@ def finish(url):
     f.close()
     print('it is',english_count[0],'th sentence')
     print('correct : ', answer_count[0], 'wrong : ', answer_count[1])
-    print('score:',answer_count[2])
+    print('score:',answer_count[0]/(answer_count[0]+answer_count[1]))
     print('done')
     
 
@@ -278,7 +283,7 @@ def main(url):
             
             #print(english_count[0])
             
-            answer_count[0]=answer_count[0]+1
+            # answer_count[0]=answer_count[0]+1
             continue
             
         english(english_count[0])
@@ -324,7 +329,7 @@ def main(url):
                 answer_count[1]=answer_count[1]+1
                 break
     print('\ncorrect : ', answer_count[0], 'wrong : ', answer_count[1], 'score:',answer_count[0]/(answer_count[0]+answer_count[1]))
-    if answer_count[0] != english_count[0]:
+    if len(answer_count[4:]) != english_count[0]:
         answer_count[0]=0
         answer_count[1]=0
         # answer_count[2]=0

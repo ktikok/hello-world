@@ -59,11 +59,33 @@ except:
 
 for i in range(1,999):
     title = browser.find_element_by_xpath('//*[@id="browse-results"]/div[1]/div['+str(i)+']/div/div/div/div[2]/h4[2]/a').text
+    #print('i1 :',i)    
     if title+'\n' not in f_list:
+        #print('X')
         # check if I have already finished the video or not 
-        browser.find_element_by_xpath('//*[@id="browse-results"]/div[1]/div['+str(i)+']/div/div/div/div[2]/h4[2]/a').click()
-        break
-
+        try:
+            browser.find_element_by_xpath('//*[@id="browse-results"]/div[1]/div['+str(i)+']/div/div/div/div[2]/h4[2]/a').click()
+            print('clicking title')
+            # my laptop title
+            # //*[@id="browse-results"]/div[1]/div[6]/div/div/div/div[2]/h4[2]/a 
+            # picture
+            # //*[@id="browse-results"]/div[1]/div[6]/div/div/div/div[1]/a/span/span[1]/span/img
+            # picture link
+            # //*[@id="browse-results"]/div[1]/div[6]/div/div/div/div[1]/a
+            break
+        except:
+            for j in range(10):
+                time.sleep(1)
+                try:
+                    browser.find_element_by_xpath('//*[@id="browse-results"]/div[1]/div['+str(i)+']/div/div/div/div[1]/a').click()
+                    print('clicking picture')
+                    # my laptop
+                    # //*[@id="browse-results"]/div[1]/div[5]/div/div/div/div[2]/h4[2]/a
+                    break        
+                except:
+                    pass
+            break
+            #print('i2 :',i)
 print('Title :',title)
 
 # print(f_list[0])

@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
 """
+Created in 2018
+
+@author: tikim
+"""
+"""
 Spyder Editor
 
 This is a temporary script file.

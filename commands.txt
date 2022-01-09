@@ -135,4 +135,11 @@ git push
 
 find where-to-look criteria action 2>/dev/null
 
+https://docs.microsoft.com/ko-kr/windows/wsl/install-manual
+#for installing wsl
+
+$ unzip '*.zip' -d combined
+$ tree combined
+# to combine google drive takeout zip file
+
 MULTILINE-COMMENT

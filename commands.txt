@@ -9,7 +9,7 @@ jupyter server----------------------------
 
 ps -ef
 kill 0000
-nohup jupyter lab --no-browser --port=8080 > /mnt/d/ubuntu_second_home/nohup_jupyterlab.out ; tail -f /mnt/d/ubuntu_second_home/nohup_jupyterlab.out
+nohup jupyter lab --no-browser --port=8080 > /mnt/d/ubuntu_second_home/nohup_jupyterlab.out & tail -f /mnt/d/ubuntu_second_home/nohup_jupyterlab.out
 dig +short myip.opendns.com @resolver1.opendns.com
 
 nohup jupyter lab --no-browser --port=8080 > nohup_jupyterlab_pytorch.out & tail -f nohup_jupyterlab_pytorch.out

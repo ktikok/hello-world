@@ -1,3 +1,9 @@
+wsl ssh server -------------------
+delete ssh server
+reinstall ssh server
+try to connect to localhost
+allow only specific ip
+
 
 how to see root tree ---------------------
 
@@ -14,6 +20,8 @@ dig +short myip.opendns.com @resolver1.opendns.com
 
 nohup jupyter lab --no-browser --port=8080 > nohup_jupyterlab_pytorch.out & tail -f nohup_jupyterlab_pytorch.out
 ssh -Y -N -p 7777 -L 8080:localhost:8080 id@server
+ssh -Y -N -p 22 -L 8080:localhost:8080 myname@165.132.24.199
+
 ssh -N -L local-address:local-port:remote-address:remote-port remote-user@remote-host
 
 github usage----------------------------

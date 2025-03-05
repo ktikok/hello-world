@@ -1,0 +1,21 @@
+# powershell, not ISE
+
+--------------------------------------------------
+ssh leviathan0@leviathan.labs.overthewire.org -p 2223
+leviathan0
+ls -la
+cd .backup
+grep "pass" bookmarks.html
+
+--------------------------------------------------
+ssh leviathan1@leviathan.labs.overthewire.org -p 2223
+3QJ3TgzHDq
+ltrace ./check
+./check
+sex
+whoami
+cat /etc/leviathan_pass/leviathan2
+
+--------------------------------------------------
+ssh leviathan2@leviathan.labs.overthewire.org -p 2223
+NsN1HwFoyN

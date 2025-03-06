@@ -48,3 +48,13 @@ Breakpoint 5 at 0x80492a4
 Breakpoint 6 at 0x80492b6
 (gdb) b *0x080492cd
 Breakpoint 7 at 0x80492cd
+
+
+radare2 -d ./printfile /etc/leviathan_pass/leviathan3
+db 0x08049250
+dc
+drr
+dr eax = 0
+db 0x080492a2
+db 0x080492a4
+pxw 256 @ espdc

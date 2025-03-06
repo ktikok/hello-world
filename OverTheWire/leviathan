@@ -19,3 +19,32 @@ cat /etc/leviathan_pass/leviathan2
 --------------------------------------------------
 ssh leviathan2@leviathan.labs.overthewire.org -p 2223
 NsN1HwFoyN
+le -la
+objdump -d ./printfile
+cat /etc/passwd
+id -u
+gdb ./printfile
+p (int) geteuid()
+b *0x08049250
+b *0x08049293
+b *0x0804929f
+b *0x080492ac
+run /etc/leviathan_pass/leviathan3
+set $eax = 0
+info registers
+continue
+
+b *0x08049250
+Breakpoint 1 at 0x8049250
+(gdb) b *0x0804928b
+Breakpoint 2 at 0x804928b
+(gdb) b *0x08049293
+Breakpoint 3 at 0x8049293
+(gdb) b *0x0804929a
+Breakpoint 4 at 0x804929a
+(gdb) b *0x080492a4
+Breakpoint 5 at 0x80492a4
+(gdb) b *0x080492b6
+Breakpoint 6 at 0x80492b6
+(gdb) b *0x080492cd
+Breakpoint 7 at 0x80492cd
